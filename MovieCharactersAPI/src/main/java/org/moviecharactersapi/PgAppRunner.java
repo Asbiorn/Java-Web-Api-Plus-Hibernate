@@ -24,7 +24,7 @@ public class PgAppRunner implements ApplicationRunner {
         System.out.println("test complete");
 
         //customerRepoImpl.printNice(customerRepoImpl.findAll());
-        customerRepoImpl.printNice(customerRepoImpl.findById(2));
+        //customerRepoImpl.printNice(customerRepoImpl.findById(2));
         //customerRepoImpl.printNice(customerRepoImpl.findByName("0")); // returns all if empty
 
 

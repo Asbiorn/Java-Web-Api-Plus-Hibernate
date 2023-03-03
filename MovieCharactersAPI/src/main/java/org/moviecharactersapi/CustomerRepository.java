@@ -1,7 +1,7 @@
 package org.moviecharactersapi;
 
-import org.moviecharactersapi.Models.Customer;
+import org.moviecharactersapi.Models.Character;
 
 
-public interface CustomerRepository extends CRUDRepository<Customer, Integer, String> {
+public interface CustomerRepository extends CRUDRepository<Character, Integer, String> {
 }

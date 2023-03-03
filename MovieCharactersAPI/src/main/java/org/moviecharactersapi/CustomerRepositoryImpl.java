@@ -1,6 +1,6 @@
 package org.moviecharactersapi;
 
-import org.retunes.Models.Customer;
+import org.moviecharactersapi.Models.Character;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     private final String username;
     private final String password;
 
-    //private String sql = "SELECT * FROM customer;";
+    //private String sql = "SELECT * FROM character;";
 
     public CustomerRepositoryImpl(
             @Value("${spring.datasource.url}") String url,
@@ -35,9 +35,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public List<Customer> findAll() {
-        String sql = "SELECT * FROM customer;";
-        List<Customer> customers = new ArrayList<>();
+    public List<Character> findAll() {
+        String sql = "SELECT * FROM character;";
+        List<Character> characters = new ArrayList<>();
         try(Connection conn = DriverManager.getConnection(url, username,password)) {
             // Write statement
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -47,30 +47,21 @@ public class CustomerRepositoryImpl implements CustomerRepository {
             // Handle result
             while(result.next()) {
 
-                Customer customer = new Customer(
-                        result.getInt("customer_id"),
-                        result.getString("first_name"),
-                        result.getString("last_name"),
-                        result.getString("postal_code"),
-                        result.getString("city"),
-                        result.getString("country"),
-                        result.getString("phone"),
-                        result.getString("email")
-
+                Character character = new Character(
                 );
-                customers.add(customer);
+                characters.add(character);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return customers;
+        return characters;
     }
 
     @Override
-    public Customer findById(Integer id) {
-        String sql = "SELECT * FROM customer WHERE customer_id = ? ";
-        Customer customer = null;
+    public Character findById(Integer id) {
+        String sql = "SELECT * FROM character WHERE character_id = ? ";
+        Character character = null;
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
             // Write statement
 
@@ -82,28 +73,21 @@ public class CustomerRepositoryImpl implements CustomerRepository {
             // Handle result
             while (result.next()) {
 
-                customer = new Customer(
-                        result.getInt("customer_id"),
-                        result.getString("first_name"),
-                        result.getString("last_name"),
-                        result.getString("postal_code"),
-                        result.getString("city"),
-                        result.getString("country"),
-                        result.getString("phone"),
-                        result.getString("email")
+                character = new Character(
+
                 );
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return customer;
+        return character;
     }
 
     @Override
-    public List<Customer>  findByName(String name) {
-        List<Customer> customers = new ArrayList<>();
-        String sql = "SELECT * FROM customer WHERE first_name ~* ? OR last_name ~* ? ";
+    public List<Character>  findByName(String name) {
+        List<Character> characters = new ArrayList<>();
+        String sql = "SELECT * FROM character WHERE first_name ~* ? OR last_name ~* ? ";
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
             // Write statement
 
@@ -116,28 +100,22 @@ public class CustomerRepositoryImpl implements CustomerRepository {
             // Handle result
             while (result.next()) {
 
-                Customer customer = new Customer(
-                        result.getInt("customer_id"),
-                        result.getString("first_name"),
-                        result.getString("last_name"),
-                        result.getString("postal_code"),
-                        result.getString("city"),
-                        result.getString("country"),
-                        result.getString("phone"),
-                        result.getString("email")
+                Character character = new Character(
+
                 );
-                customers.add(customer);
+                characters.add(character);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return customers;
+        return characters;
     }
 
-    public List<Customer>  findAllPage(int limit, int offset) {
-        sql += limit;
-        List<Customer> customers = new ArrayList<>();
+    public List<Character>  findAllPage(int limit, int offset) {
+        //sql += limit;
+        List<Character> characters = new ArrayList<>();
+        String sql = "SELECT * FROM character WHERE first_name ~* ? OR last_name ~* ? ";
         try(Connection conn = DriverManager.getConnection(url, username,password)) {
             // Write statement
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -148,40 +126,32 @@ public class CustomerRepositoryImpl implements CustomerRepository {
             // Handle result
             while(result.next()) {
 
-                Customer customer = new Customer(
-                        result.getInt("customer_id"),
-                        result.getString("first_name"),
-                        result.getString("last_name"),
-                        result.getString("postal_code"),
-                        result.getString("city"),
-                        result.getString("country"),
-                        result.getString("phone"),
-                        result.getString("email")
+                Character character = new Character(
 
                 );
-                customers.add(customer);
+                characters.add(character);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return customers;
+        return characters;
     }
 
 
 
     @Override
-    public int insert(Customer  object) {
+    public int insert(Character  object) {
         return 0;
     }
 
     @Override
-    public int update(Customer  object) {
+    public int update(Character  object) {
         return 0;
     }
 
     @Override
-    public int delete(Customer  object) {
+    public int delete(Character  object) {
         return 0;
     }
 
@@ -190,22 +160,16 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return 0;
     }
 
-    public void printNice(Customer object) {
+    public void printNice(Character object) {
         StringBuilder str = new StringBuilder();
         str.append(object.getClass().getSimpleName()+": ");
-        str.append("\n\tDatabase id: "+object.id());
-        str.append("\n\t"+object.first_name());
-        str.append(" "+object.last_name());
-        str.append("\n\t"+""+object.country());
-        str.append("\n\t"+""+object.postal_code());
-        str.append("\n\t"+""+object.city());
-        str.append("\n\t"+""+object.phone());
-        str.append("\n\t"+""+object.email());
+        str.append("\n\tDatabase id: "+object.getId());
+
         System.out.println(str);
     }
 
-    public void printNice(List<Customer> customers) {
-        customers.forEach(this::printNice);
+    public void printNice(List<Character> characters) {
+        characters.forEach(this::printNice);
 
     }
 }
