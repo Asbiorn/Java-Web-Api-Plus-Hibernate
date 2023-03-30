@@ -1,15 +1,20 @@
-package org.moviecharactersapi.Models;
+package org.moviecharactersapi.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "tb_movie")
 public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "movie_id")
     private int id;
 
     @Column(length = 100, nullable = false)
@@ -19,7 +24,7 @@ public class Movie {
     private String genre;
 
     @Column(length = 4, nullable = false)
-    private int  relase_year;
+    private int  release_year;
 
     @Column(length = 100, nullable = false)
     private String  director;

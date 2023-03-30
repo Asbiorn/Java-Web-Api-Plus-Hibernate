@@ -1,31 +1,19 @@
-package org.moviecharactersapi.Models;
+package org.moviecharactersapi.models;
+
 
 import jakarta.persistence.*;
-import org.moviecharactersapi.CRUDdefaultAbstraction;
+import lombok.Getter;
+import lombok.Setter;
 import org.moviecharactersapi.enums.Gender;
 
-
-
-import java.util.List;
 import java.util.Set;
 
-@Entity
-@Table(name = "tb_character")
-public class Character extends CRUDdefaultAbstraction {
 
-    // Getters and Setters
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-    public String getName() {
-        return full_name;
-    }
-    public void setName(String name) {
-        this.full_name = full_name;
-    }
+@Entity
+@Getter
+@Setter
+@Table(name = "tb_character")
+public class Character {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +35,7 @@ public class Character extends CRUDdefaultAbstraction {
     @JoinTable(
             name = "character_movie",
             joinColumns = {@JoinColumn(name = "character_id")},
-            inverseJoinColumns = {@JoinColumn(name = "tb_movie_id")}
+            inverseJoinColumns = {@JoinColumn(name = "movie_id")}
     )
     private Set<Movie> movies;
 
