@@ -10,8 +10,8 @@ import java.util.Set;
 
 
 @Entity
-@Getter
 @Setter
+@Getter
 @Table(name = "tb_character")
 public class Character {
 
@@ -38,7 +38,6 @@ public class Character {
             inverseJoinColumns = {@JoinColumn(name = "movie_id")}
     )
     private Set<Movie> movies;
-
 
 
 }

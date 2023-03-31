@@ -1,8 +1,5 @@
 package org.moviecharactersapi.mappers;
 
-/*import noroff.mefit.dtos.SetCountDto;
-import noroff.mefit.models.Exercise;
-import noroff.mefit.models.SetCount;*/
 import org.moviecharactersapi.models.Character;
 import org.moviecharactersapi.models.Movie;
 import org.moviecharactersapi.models.dtos.Character.CharacterDTO;
@@ -24,13 +21,12 @@ public abstract class CharacterMapper {
 
     @Autowired
     protected CharacterService characterService ;
+    @Autowired
     protected MovieService movieService ;
 
-    // purpose of the mapper is to map or "convert" Character objects to CharacterDTOs
 
     @Mapping(target = "movies", source = "movies", qualifiedByName = "moviesToIds")
     public abstract CharacterDTO characterToCharacterDTO(Character character);
-
     @Named("moviesToIds")
     Set<Integer> mapMoviesToIds(Set<Movie> movies) {
         if(movies == null)
@@ -38,21 +34,20 @@ public abstract class CharacterMapper {
         return movies.stream()
                 .map(Movie::getId).collect(Collectors.toSet());
     }
+
     public abstract Collection<CharacterDTO> charactersToCharacterDTOs(Collection<Character> characters);
 
 
-/*    // CharacterDTO to Character
-    @Mapping(target ="exercise", source = "exercise", qualifiedByName = "characterDTO-IdsToCharacter")
-    public abstract Character setCountDtoToSetCount(CharacterDTO characterDTO);
+    // CharacterDTO to Character
+    // most is auto mapped due to equal names in dto and entity
+    @Mapping(target ="movies", source = "movies", qualifiedByName = "movieIdsToMovies")
+    public abstract Character characterDTOToCharacter(CharacterDTO characterDTO);
 
-    @Named("characterDTO-IdsToCharacter")
-    Character mapExerciseDtoIdsToExercise(int id) {
-        return characterService.findById(id);
-    }*/
-/*
-    //@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(target ="exercise", source = "exercise", qualifiedByName = "exerciseDtoIdsToExercise")
-    public abstract SetCount updateSetCountFromSetCountDto(SetCountDto setCountDto, @MappingTarget SetCount setCount);
-*/
 
+    @Named("movieIdsToMovies") // returns set of movie objects to the character in the Domain
+    Set<Movie> mapIdsToSubjects(Set<Integer> movieId) {
+        return movieId.stream()
+                .map( i -> movieService.findById(i))
+                .collect(Collectors.toSet());
+    }
 }

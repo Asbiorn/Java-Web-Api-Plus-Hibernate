@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 import org.moviecharactersapi.mappers.CharacterMapper;
+import org.moviecharactersapi.models.Character;
 import org.moviecharactersapi.services.CharacterService;
 import org.moviecharactersapi.services.CharacterServiceImpl;
 import org.moviecharactersapi.util.ApiErrorResponse;
@@ -27,7 +28,7 @@ import java.net.URI;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("api/v1/set_counts")
+@RequestMapping("api/v1/characters")
 public class CharacterController {
     private final CharacterService characterService;
     private final CharacterMapper characterMapper;
@@ -87,13 +88,13 @@ public class CharacterController {
         }
     }
 
-/*
+
     @Operation(summary = "Adding a new character")
     @PostMapping()
     public ResponseEntity<CharacterDTO> add(@RequestBody CharacterDTO characterDTO) {
         Character characterDTOToCharacter = characterMapper.characterDTOToCharacter(characterDTO);
         Character characterToAdd = characterService.add(characterDTOToCharacter); // no need to create new object
-        URI location = URI.create("api/v1/set_counts/" + characterToAdd.getId());
+        URI location = URI.create("api/v1/character/" + characterToAdd.getId());
 
         return ResponseEntity.created(location).build();
     }
@@ -112,16 +113,19 @@ public class CharacterController {
                     content = @Content)
     })
     @PutMapping("{id}")
-    public ResponseEntity<CharacterDTO> update( @PathVariable int id, @RequestBody CharacterDTO characterDTO) {
-        Character existingCharacter = characterService.findById(id);
-        if(id != characterService.findById(id).getId()) {
+    public ResponseEntity update(@RequestBody CharacterDTO characterDTO, @PathVariable int id) {
+        if(id != characterDTO.getId())
             return ResponseEntity.badRequest().build();
-        }
-        characterMapper.updateCharacterFromCharacterDTO(characterDTO,existingCharacter );
-        characterService.update(existingCharacter);
-        return ResponseEntity.ok(characterMapper.characterToCharacterDTO(existingCharacter));
+        characterService.update(
+                characterMapper.characterDTOToCharacter(characterDTO)
+        );
+        return ResponseEntity.noContent().build();
+    }
+    @DeleteMapping("{id}") // DELETE: localhost:8080/api/v1/students/1
+    public ResponseEntity delete(@PathVariable int id) {
+        characterService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
-*/
 
 }

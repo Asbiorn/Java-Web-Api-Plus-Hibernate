@@ -1,4 +1,4 @@
-package org.moviemoviesapi.services;
+package org.moviecharactersapi.services;
 
 
 import org.moviecharactersapi.repositories.MovieRepository;
@@ -38,10 +38,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void deleteById(Integer id) {
-/*        Movie movie = findById(id);
-        if(movie.getMovies()!= null) // if the movie has movies linked to it
-            movie.getMovies().forEach(movie -> movie.setMovie(null)); // movie.getMovies().setMovie(null); remove relations, from the side which owns it.
-   */
+
     movieRepository.deleteById(id);
     }
 

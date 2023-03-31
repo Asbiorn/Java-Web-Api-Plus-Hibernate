@@ -7,8 +7,8 @@ import lombok.Setter;
 import java.util.Set;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @Table(name = "tb_movie")
 public class Movie {
 
@@ -27,7 +27,7 @@ public class Movie {
     private int  release_year;
 
     @Column(length = 100, nullable = false)
-    private String  director;
+    private String director;
 
     @Column(length = 255, nullable = false)
     private String picture_url;
