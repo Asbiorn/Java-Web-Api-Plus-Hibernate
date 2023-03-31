@@ -19,9 +19,6 @@ public class Franchise {
     @Column(length = 255, nullable = false)
     private String description;
 
-    // Relations
-   // @OneToMany(mappedBy = "professor")
-   // private Set<Character> characters;
     @OneToMany(mappedBy = "franchise")
     private Set<Movie> movies;
 

@@ -1,8 +1,6 @@
 package org.moviecharactersapi.services;
 
-
 import org.moviecharactersapi.repositories.MovieRepository;
-import org.moviecharactersapi.services.MovieService;
 import org.moviecharactersapi.models.Movie;
 import org.springframework.stereotype.Service;
 

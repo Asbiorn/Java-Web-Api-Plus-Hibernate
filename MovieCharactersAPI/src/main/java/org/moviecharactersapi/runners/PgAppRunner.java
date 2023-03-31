@@ -20,15 +20,8 @@ public class PgAppRunner implements ApplicationRunner {
     }
 
     @Override
-    @Transactional //need to add @Transactional to be able to delete from both sides of the relationship.
+    @Transactional
     public void run(ApplicationArguments args) throws Exception {
-        //customerRepoImpl.test();
-        //System.out.println("test complete");
-
-        //customerRepoImpl.printNice(customerRepoImpl.findAll());
-        //customerRepoImpl.printNice(customerRepoImpl.findById(2));
-        //customerRepoImpl.printNice(customerRepoImpl.findByName("0")); // returns all if empty
-
 
 
 

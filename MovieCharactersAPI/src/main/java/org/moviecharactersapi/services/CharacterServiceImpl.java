@@ -41,12 +41,6 @@ public class CharacterServiceImpl implements CharacterService {
             return;
         }
        Character character = findById(id);
-        if(character.getMovies()!= null){
-            // if the character has movies linked to it
-            //maybe possible to just delete rightaway, when character owns the relation
-            //character.getMovies().forEach(movie -> movie.setCharacter(null)); // character.getMovies().setCharacter(null); remove relations, from the side which owns it.
-            System.out.println("has movies");
-        }
     characterRepository.deleteById(id);
     }
 

@@ -1,10 +1,5 @@
 package org.moviecharactersapi.controllers;
-/*import noroff.mefit.dtos.CharacterDTO;
-import noroff.mefit.mappers.CharacterMapper;
-import noroff.mefit.models.Character;
-import noroff.mefit.services.CharacterService;
-import noroff.mefit.services.CharacterServiceImpl;
-import noroff.mefit.util.ApiErrorResponse;*/
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -121,7 +116,8 @@ public class CharacterController {
         );
         return ResponseEntity.noContent().build();
     }
-    @DeleteMapping("{id}") // DELETE: localhost:8080/api/v1/students/1
+
+    @DeleteMapping("{id}")
     public ResponseEntity delete(@PathVariable int id) {
         characterService.deleteById(id);
         return ResponseEntity.noContent().build();
